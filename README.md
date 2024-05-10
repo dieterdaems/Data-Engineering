@@ -1,3 +1,3 @@
-# Tutorial Template Project
+# Data Engineering Project
 
-This is a [Dagster](https://dagster.io/) project made to be used alongside the official [Dagster tutorial](https://docs.dagster.io/tutorial). This project is intentionally empty and is meant to be used as a starting point for the tutorial.
+Task for the course Data Engineering to scrape data from hackernews and set up a data lake pipeline. Everything runs in a docker container. I am using Dagster to orchestrate the pipeline, running on port 3000. On port 8501 i run an simple streamlit dashboard

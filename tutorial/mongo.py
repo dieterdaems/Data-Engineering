@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from pymongo import MongoClient
 import polars as pl
 import pandas as pd
+import pymongo
 
 # if os.path.exists(".env"):
 #     load_dotenv(".env")
@@ -13,16 +14,22 @@ import pandas as pd
 # if not password:
 #     raise ValueError("MONGODB_PASSWORD not set")
 
-import pymongo
 
 # MongoDB connection parameters
-mongo_host = 'tutorial-mongodb-1'  # Container name of MongoDB
-mongo_port = 27017
-mongo_user = 'user'  # MongoDB username
-mongo_pass = 'pass'  # MongoDB password
-mongo_auth_source = 'admin'  # Authentication database
+mongo_host = 'tutorial-mongodb-1'
+mongo_port = os.getenv("MONGODB_PORT")
+mongo_user = os.getenv("MONGODB_USER")
+mongo_pass = os.getenv("MONGODB_PASSWORD")
+mongo_auth_source = 'admin' 
 
-# Create a MongoDB client with authentication
+if not mongo_port:
+    raise ValueError("MONGODB_PORT not set")
+if not mongo_user:
+    raise ValueError("MONGODB_USER not set")
+if not mongo_pass:
+    raise ValueError("MONGODB_PASSWORD not set")
+
+
 client = pymongo.MongoClient(host=mongo_host,
                              port=mongo_port,
                              username=mongo_user,
@@ -30,12 +37,12 @@ client = pymongo.MongoClient(host=mongo_host,
                              authSource=mongo_auth_source)
 
 # Check if MongoDB is reachable and authenticate
-# try:
-#     # List all databases in MongoDB
-#     databases = client.list_database_names()
-#     print("MongoDB connection successful. Databases available:", databases)
-# except pymongo.errors.ConnectionFailure:
-#     print("Failed to connect to MongoDB.")
+try:
+    # List all databases in MongoDB
+    databases = client.list_database_names()
+    print("MongoDB connection successful. Databases available:", databases)
+except pymongo.errors.ConnectionFailure:
+    print("Failed to connect to MongoDB.")
 
 
 def get_collection(layer: str, database: str) -> MongoClient:
@@ -44,8 +51,8 @@ def get_collection(layer: str, database: str) -> MongoClient:
                              username=mongo_user,
                              password=mongo_pass,
                              authSource=mongo_auth_source)
-    db = client[database]
-    collection = db[layer]
+    db = client[layer]
+    collection = db[database]
     return collection
 
 def insert_document(collection: MongoClient, document: list[dict]) -> None:

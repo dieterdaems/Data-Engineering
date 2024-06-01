@@ -8,6 +8,13 @@ import pandas as pd
 
 
 def dataframe_for_word_count() -> pd.DataFrame:
+    """
+    Retrieves data from MongoDB collections ('hacker-news', 'feed', 'hacker-news-comments')
+    and creates a DataFrame with columns 'title', 'summary', and 'text'.
+
+    Returns:
+        pd.DataFrame: DataFrame with columns 'title', 'summary', and 'text'.
+    """
     df1 = get_dataframe_from_mongoDB('silver', "hacker-news")
     df2 = get_dataframe_from_mongoDB('silver', "feed")
     df3 = get_dataframe_from_mongoDB('silver', "hacker-news-comments")

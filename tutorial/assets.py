@@ -1,6 +1,12 @@
 import requests
 import feedparser
 from bs4 import BeautifulSoup
+import csv
+import datetime
+import os
+from pathlib import Path
+from dagster import Backoff, Jitter, RetryPolicy, asset
+from .mongo import store_data
 
 
 def get_stories(page: int) -> list:
@@ -72,12 +78,6 @@ def get_stories_from_feed() -> list:
         stories += {entry}
     return stories
 
-import csv
-import datetime
-import os
-from pathlib import Path
-from dagster import Backoff, Jitter, RetryPolicy, asset
-from .mongo import store_data
 
 retry_policy = RetryPolicy(
     max_retries=3,
@@ -86,7 +86,20 @@ retry_policy = RetryPolicy(
     jitter=Jitter.PLUS_MINUS,
 )
 
+import datetime
+from pathlib import Path
+
 def create_write_path(name: str) -> str:
+    """
+    Create a write path for the given name.
+
+    Args:
+        name (str): The name to be included in the path.
+
+    Returns:
+        str: The created write path.
+
+    """
     month_num = datetime.datetime.now().month
     year_num = datetime.datetime.now().year
     path = f"data-lake/bronze/{name}/{year_num}/{month_num}"
@@ -94,16 +107,17 @@ def create_write_path(name: str) -> str:
     return path
 
 
-# def save_dataset(stories: list, name: str) -> None:
-#     day = datetime.datetime.now().day
-#     path = create_write_path(name)
-#     keys = stories[0].keys()
-#     with open(f"{path}/{day}.csv", 'w', newline='') as output_file:
-#         dict_writer = csv.DictWriter(output_file, keys)
-#         dict_writer.writeheader()
-#         dict_writer.writerows(stories)
-
 def save_dataset(stories, name):
+    """
+    Save a dataset of stories to a CSV file.
+
+    Args:
+        stories (list[dict]): A list of dictionaries representing stories.
+        name (str): The name of the dataset.
+
+    Returns:
+        None
+    """
     current_day = str(datetime.datetime.now().day)
     file_path = os.path.join(create_write_path(name), f"{current_day}.csv")
 
@@ -120,13 +134,10 @@ def save_dataset(stories, name):
 def download_hackernews() -> None:
     stories = get_stories_from_pages(5)
     store_data('bronze', "hacker-news", stories)
-    # save_dataset(stories, "hacker-news")
     comments = get_comments(stories)
     store_data('bronze', "hacker-news-comments", comments)
-    # save_dataset(comments, "hacker-news-comments")
 
 @asset(retry_policy=retry_policy)
 def download_arxiv() -> None:
     stories = get_stories_from_feed()
     store_data('bronze', "feed", stories)
-    # save_dataset(stories, "arxiv")

@@ -5,6 +5,18 @@ from .assets import download_hackernews, download_arxiv
 import pandas as pd
 
 def clean_data(layer: str, database: str, subset: list) -> pd.DataFrame:
+    """
+    Cleans the data by removing duplicate records based on the specified subset of columns.
+
+    Args:
+        layer (str): The layer of the data.
+        database (str): The database to retrieve the data from.
+        subset (list): A list of column names to consider when removing duplicates.
+
+    Returns:
+        pd.DataFrame: The cleaned dataframe.
+
+    """
     df = get_dataframe_from_mongoDB(layer, database)
 
     df = pd.DataFrame(df)
@@ -19,6 +31,17 @@ def clean_data(layer: str, database: str, subset: list) -> pd.DataFrame:
 
 
 def store_dataframe(layer: str, database: str, df: pd.DataFrame) -> None:
+    """
+    Stores a pandas DataFrame in a specified layer and database.
+
+    Parameters:
+    - layer (str): The layer where the data will be stored.
+    - database (str): The database where the data will be stored.
+    - df (pd.DataFrame): The DataFrame to be stored.
+
+    Returns:
+    None
+    """
     store_data(layer, database, df.to_dict('records'))
 
 @asset(deps=[download_hackernews])

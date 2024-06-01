@@ -19,7 +19,7 @@ def dataframe_for_word_count() -> pd.DataFrame:
     df2 = get_dataframe_from_mongoDB('silver', "feed")
     df3 = get_dataframe_from_mongoDB('silver', "hacker-news-comments")
     
-    if df2:
+    if not df2.empty:
         title = df1['title']
         summary = df2['summary']
         text = df3['text']

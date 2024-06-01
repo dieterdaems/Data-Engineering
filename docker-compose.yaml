@@ -18,7 +18,7 @@ services:
     environment:
       - DAGSTER_HOME=/dagster/dagster_home
       - MONGODB_HOST=mongodb
-      - MONGODB_USERNAME=user
+      - MONGODB_USER=user
       - MONGODB_PASSWORD=pass
       - MONGODB_PORT=27017
     volumes:

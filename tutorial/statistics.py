@@ -2,7 +2,7 @@
 from dagster import asset
 
 from tutorial.cleaning import clean_arxiv, clean_hacker_news, clean_hacker_news_comments
-from .mongo import store_data, get_dataframe_from_mongoDB
+from tutorial.mongo import store_data, get_dataframe_from_mongoDB
 import polars as pl
 import pandas as pd
 

@@ -1,7 +1,7 @@
 from dagster import asset
 import polars as pl
-from .mongo import store_data, get_all_data, get_dataframe_from_mongoDB
-from .assets import download_hackernews, download_arxiv
+from tutorial.mongo import store_data, get_all_data, get_dataframe_from_mongoDB
+from tutorial.assets import download_hackernews, download_arxiv
 import pandas as pd
 
 def clean_data(layer: str, database: str, subset: list) -> pd.DataFrame:

@@ -7,8 +7,8 @@ import pymongo
 
 
 # MongoDB connection parameters
-mongo_host = 'tutorial-mongodb-1'
-mongo_port = os.getenv("MONGODB_PORT")
+mongo_host = os.getenv("MONGODB_HOST")
+mongo_port = 27017
 mongo_user = os.getenv("MONGODB_USER")
 mongo_pass = os.getenv("MONGODB_PASSWORD")
 mongo_auth_source = 'admin' 

@@ -6,7 +6,7 @@ import datetime
 import os
 from pathlib import Path
 from dagster import Backoff, Jitter, RetryPolicy, asset
-from .mongo import store_data
+from tutorial.mongo import store_data
 
 
 def get_stories(page: int) -> list:

@@ -1,8 +1,8 @@
 #add text from hacker news and comments, summary of arxiv papers, and store in MongoDB
 from dagster import asset
 
-from tutorial.cleaning import clean_arxiv, clean_hacker_news, clean_hacker_news_comments
-from tutorial.mongo import store_data, get_dataframe_from_mongoDB
+from dataEngineering.cleaning import clean_arxiv, clean_hacker_news, clean_hacker_news_comments
+from dataEngineering.mongo import store_data, get_dataframe_from_mongoDB
 import polars as pl
 import pandas as pd
 

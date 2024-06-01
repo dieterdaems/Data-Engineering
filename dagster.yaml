@@ -1,6 +1,0 @@
-run_storage:
-  module: dagster_mongo.run_storage
-  class: MongoRunStorage
-  config:
-    # MongoDB connection string
-    mongodb_conn_string: "mongodb://user:pass@mongodb_host:27017/dagster"

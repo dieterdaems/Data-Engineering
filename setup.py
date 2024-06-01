@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
 setup(
-    name="tutorial",
+    name="Data Engineering",
     packages=find_packages(exclude=["tutorial_tests"]),
     install_requires=[
         "dagster",

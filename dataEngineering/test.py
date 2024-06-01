@@ -1,9 +1,9 @@
 
 
-from tutorial.assets import get_stories_from_feed
-from tutorial.mongo import store_data, get_all_data
-from tutorial.cleaning import clean_data, store_dataframe
-from tutorial.statistics import dataframe_for_word_count
+from dataEngineering.assets import get_stories_from_feed
+from dataEngineering.mongo import store_data, get_all_data
+from dataEngineering.cleaning import clean_data, store_dataframe
+from dataEngineering.statistics import dataframe_for_word_count
 
 # Some example code to test the functions
 

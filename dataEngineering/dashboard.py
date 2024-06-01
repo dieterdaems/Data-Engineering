@@ -1,6 +1,6 @@
 import polars as pl
 import streamlit as st
-from tutorial.mongo import get_dataframe_from_mongoDB
+from dataEngineering.mongo import get_dataframe_from_mongoDB
 
 def concatenate_column_strings(df, column_name):
     """

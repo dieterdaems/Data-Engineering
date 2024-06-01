@@ -19,15 +19,24 @@ def dataframe_for_word_count() -> pd.DataFrame:
     df2 = get_dataframe_from_mongoDB('silver', "feed")
     df3 = get_dataframe_from_mongoDB('silver', "hacker-news-comments")
     
-    title = df1['title']
-    summary = df2['summary']
-    text = df3['text']
-    
-    df4 = pd.DataFrame({
-        'title': title,
-        'summary': summary,
-        'text': text
-    })
+    if df2:
+        title = df1['title']
+        summary = df2['summary']
+        text = df3['text']
+        
+        df4 = pd.DataFrame({
+            'title': title,
+            'summary': summary,
+            'text': text
+        })
+    else:
+        title = df1['title']
+        text = df3['text']
+        
+        df4 = pd.DataFrame({
+            'title': title,
+            'text': text
+        })
     
     return df4
 

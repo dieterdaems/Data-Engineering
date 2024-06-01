@@ -5,7 +5,7 @@ import polars as pl
 import pandas as pd
 import pymongo
 
-
+load_dotenv()
 # MongoDB connection parameters
 mongo_host = os.getenv("MONGODB_HOST")
 mongo_port = 27017

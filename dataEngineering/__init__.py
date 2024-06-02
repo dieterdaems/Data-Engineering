@@ -29,21 +29,24 @@ import_schedule = ScheduleDefinition(
     name="download_hackernews_data",
     cron_schedule="0 0 * * *",
     job=asset_download_job,
+    is_active=True,
 )
 
 cleaning_schedule = ScheduleDefinition(
     name="clean_data",
     cron_schedule="0 3 * * *",
     job=cleaning_job,
+    is_active=True,
 )
 
 dashboard_schedule = ScheduleDefinition(
     name="dashboard",
     cron_schedule="0 6 * * *",
     job=dashboard_job,
+    is_active=True,
 )
 
 defs = Definitions(
     assets=all_assets,  # type: ignore
-    schedules=[import_schedule],
+    schedules=[import_schedule, cleaning_schedule, dashboard_schedule],
 )

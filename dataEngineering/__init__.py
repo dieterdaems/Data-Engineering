@@ -31,13 +31,13 @@ import_schedule = ScheduleDefinition(
     job=asset_download_job,
 )
 
-import_schedule = ScheduleDefinition(
+cleaning_schedule = ScheduleDefinition(
     name="clean_data",
     cron_schedule="0 3 * * *",
     job=cleaning_job,
 )
 
-import_schedule = ScheduleDefinition(
+dashboard_schedule = ScheduleDefinition(
     name="dashboard",
     cron_schedule="0 6 * * *",
     job=dashboard_job,

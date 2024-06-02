@@ -1,4 +1,4 @@
-from dagster import AssetSelection, Definitions, ScheduleDefinition, define_asset_job, load_assets_from_modules
+from dagster import AssetSelection, DefaultScheduleStatus, Definitions, ScheduleDefinition, define_asset_job, load_assets_from_modules
 
 from . import assets
 from . import cleaning
@@ -29,21 +29,21 @@ import_schedule = ScheduleDefinition(
     name="download_hackernews_data",
     cron_schedule="0 0 * * *",
     job=asset_download_job,
-    is_active=True,
+    default_status=DefaultScheduleStatus.RUNNING,
 )
 
 cleaning_schedule = ScheduleDefinition(
     name="clean_data",
     cron_schedule="0 3 * * *",
     job=cleaning_job,
-    is_active=True,
+    default_status=DefaultScheduleStatus.RUNNING
 )
 
 dashboard_schedule = ScheduleDefinition(
     name="dashboard",
     cron_schedule="0 6 * * *",
     job=dashboard_job,
-    is_active=True,
+    default_status=DefaultScheduleStatus.RUNNING
 )
 
 defs = Definitions(

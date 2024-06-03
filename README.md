@@ -10,3 +10,7 @@ V1.1
 
 - Removed mongoDB login credentials from pythong script
 - Fixed bug where layer and database name were switched
+- Updated sheduling and fixed bug in dagster schedules
+- Updated project name from tutorial to dataEngineering
+- Made fix for when you start and rss feed is empty ( in weekends )
+- cleaned up code and added documentation
